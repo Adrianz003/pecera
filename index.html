@@ -1,36 +1,82 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comedero</title>
+    <title>Control de Encendido/Apagado</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <!-- Script para controlar el dispositivo Particle -->
     <script>
-        function controlServo(estado) {
-            fetch('https://api.particle.io/v1/devices/0a10aced202194944a058ae4/motor', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: 'access_token=4575c31f1e1aa26d938b67b8e9698690af427cdc&parametro=' + estado
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                if(data.return_value == 1) {
-                    alert("Servo activado");
-                } else if(data.return_value == 0) {
-                    alert("Servo desactivado");
-                } else {
-                    alert("Error en el comando");
-                }
-            })
-            .catch(error => console.error('Error:', error));
-        }
+        var accessToken = "636b78da84b823146ff152fd459b035cf1f2124d";
+        var deviceID = "e00fce680be3c39ca87dab36";
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/btn";
+
+        function switchOn() {
+            $.post(url, { params: "on", access_token: accessToken });
+        }   
     </script>
+
+    <!-- Diseño de Botones -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+               /* Imagen de fondo */
+          /*background-image: url('peces.jpg');  Cambia esto a la ruta de tu imagen */
+            background-size: cover; /* Ajusta la imagen para cubrir todo el fondo */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-position: center; 
+        }
+
+
+        h1 {
+            color: #b0eb9b;
+            margin-bottom: 20px;
+        }
+
+        button {
+            border: 0;
+            background-image: linear-gradient(150deg, #9500, #09F, #00DDFF);
+            border-radius: 8px;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            padding: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 10px;
+        }
+
+        button span {
+            background-color: #111;
+            padding: 16px 24px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        button:hover span {
+            background: none;
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+    </style>
 </head>
-<body>
-    <h1>Control del Servo</h1>
-    <button onclick="controlServo('on')">Encender comedero</button>
-    <button onclick="controlServo('off')">Apagar Servo</button>
-</body>
+    <body>
+
+        <h1>Control de alimentador para peces</h1>
+    
+        <button onclick="switchOn()">
+            <span>Alimentar</span>
+        </button>
+    
+    </body>
 </html>
