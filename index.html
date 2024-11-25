@@ -7,9 +7,9 @@
 
     <!-- Script para controlar el dispositivo Particle -->
     <script>
-        var accessToken = "636b78da84b823146ff152fd459b035cf1f2124d";
-        var deviceID = "e00fce680be3c39ca87dab36";
-        var url = "https://api.particle.io/v1/devices/" + deviceID + "/btn";
+        var accessToken = "4575c31f1e1aa26d938b67b8e9698690af427cdc";
+        var deviceID = "0a10aced202194944a058ae4";
+        var url = "https://api.particle.io/v1/devices/" + deviceID + "/motor";
 
         function switchOn() {
             $.post(url, { params: "on", access_token: accessToken });
